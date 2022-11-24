@@ -29,7 +29,7 @@
 					<tr class="contentbox">
 						<td class="content">
 							안녕하십니꽈.<br>
-							★${mname}★님 회원 가입을 축하드립니다!<br>
+							♥${mname}♥님 회원 가입을 축하드립니다!<br>
 							가입하신 아이디는 ★${mid}★ 입니돠.
 						</td>
 						
