@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/title.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/contact.css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/join.js"></script>
 <title>** Bak's profile **</title>
 </head>
 <body>
@@ -30,7 +31,7 @@
 						<td class="content">
 						<center>
 							<table border="0" cellspacing="0" cellpadding="15">
-								<form action="joinOk" method="post">
+								<form action="joinOk" method="post" name="join_frm">
 									<tr>
 										<td><span class="content_text01">MEMBER ID  </span></td>
 										<td><input class="input_type01" type="text" name="mid"></td>
@@ -40,7 +41,7 @@
 										<td><input class="input_type01" type="password" name="mpw"></td>
 									</tr>
 									<tr>
-										<td><span class="content_text01">PW CHECK  </span></td>
+										<td><span class="content_text01">PW CHECK </span></td>
 										<td><input class="input_type01" type="password" name="mpw_check"></td>
 									</tr>
 									<tr>
@@ -52,9 +53,10 @@
 										<td><input class="input_type01" type="text" name="memail"></td>
 									</tr>
 									
+									
 									<tr> 
 										<td colspan="2">
-											<input class="button_type01" type="submit" value="가입완료">&nbsp;&nbsp;
+											<input class="button_type01" type="button" value="가입완료" onclick="joinCheck()">&nbsp;&nbsp;
 											<input class="button_type01" type="button" value="로그인" onclick="script:window.location='login'">
 										</td>
 									</tr>
