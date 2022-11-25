@@ -17,34 +17,31 @@
 			<td width="65%" class="menu01">&nbsp;</td>
 			<td width="5%" class="menu01"><a href="index">HOME</a></td>
 			<td width="5%" class="menu01">
+			
 			<%
 				if(sessionId == null) {
 			%>
-			<a href="login">LOGIN</a>
-			<% 
-			  } else {
+				<a href="login">LOGIN</a>
+			<%
+				} else {	
 			%>
-			<a href="login">LOGOUT</a>
+				<a href="logout">LOGOUT</a>
 			<% 
-			} 
+				} 
 			%>
 			</td>
-			
 			<td width="5%" class="menu01">
 			<%
 				if(sessionId == null) {
 			%>
-			<a href="join">JOIN</a>
-			<% 
-			  } else {
+				<a href="join">JOIN</a>
+			<%
+				} else {	
 			%>
-			<a href="memberModify">MODIFY</a>
+				<a href="memberModify">MODIFY</a>
 			<% 
-			} 
-			%>
-		
-			</td>
-			
+				} 
+			%>	
 			
 			<td width="7%" class="menu01"><a href="profile">PROFILE</a></td>
 			<td width="7%" class="menu01"><a href="question">QUESTION</a></td>

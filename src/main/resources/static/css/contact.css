@@ -40,6 +40,7 @@ input.button_type01 {
 	color: #ffffff;
 	font-weight: bold;
 	padding: 5px;
+	cursor: pointer;
 }
 
 textarea.textarea_type01 {
@@ -52,6 +53,17 @@ textarea.textarea_type01 {
 	padding: 5px;
 }
 
+input.button_type01:hover {
+	background-color: #5F7161;
+	border: 2px solid #C6EBC9;
+	width: 180px;
+	height: 40px;
+	font-family: malgun;
+	font-size: 20px;
+	color: #ffffff;
+	font-weight: bold;
+	padding: 5px;
+}
 
 
 

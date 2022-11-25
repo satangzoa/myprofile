@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DaoSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,7 +60,15 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "question")
-	public String question() {
+	public String question(HttpSession session, Model model) {
+		
+		String sessionId = (String) session.getAttribute("memberId");
+		
+		if(sessionId == null) {//로그인 상태 확인
+			model.addAttribute("memberId", "손님이심");
+		} else {
+			model.addAttribute("memberId", sessionId);
+		}
 		
 		return "question";
 	}
@@ -102,22 +111,77 @@ public class HomeController {
 	
 
 	@RequestMapping(value = "loginOk")
-	public String loginOk(HttpServletRequest request, Model model) {
+	public String loginOk(HttpServletRequest request, Model model,HttpSession session) {
 		
 		String mid =request.getParameter("mid");
 		String mpw =request.getParameter("mpw");
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		int checkIdFlag = dao.checkId(mid);//가입하려는 아이디 존재시 1시, 존재하지 않으면 0 반환
+		int checkIdFlag = dao.checkId(mid);//로그인하려는  아이디 존재시 1시,로그인하려는  아이디 존재하지 않으면 0 반환
+		int checkIdPwFlag = dao.checkIdAndPw(mid, mpw);//로그인 하려는 아이디와 비밀번호가 모두 일치하는 데이터가 존재하면 1 아니면 0
 		
-		if(checkIdFlag == 0) {
+//		if(checkIdFlag == 0) {
+//		model.addAttribute("checkIdFlag",checkIdFlag);
+//	} else {
+//		model.addAttribute("checkIdFlag",checkIdFlag);
+//	}
 		model.addAttribute("checkIdFlag",checkIdFlag);
+		model.addAttribute("checkIdPwFlag",checkIdPwFlag);
+		
+		if(checkIdPwFlag == 1) {// 로그인 실행
+			session.setAttribute("memberId", mid);
+			MemberDto memberDto = dao.getMemberInfo(mid);
+			
+			model.addAttribute("memberDto", memberDto);
+			model.addAttribute("mid", mid);
 		}
+		
 		return "loginOk";
 	}
 	
+
+	@RequestMapping(value = "memberModify")
+	public String memberModify(HttpSession session,Model model) {
+		
+		String sessionId = (String) session.getAttribute("memberId");
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		MemberDto memberDto = dao.getMemberInfo(sessionId);
+		
+		model.addAttribute("memberDto", memberDto);
+		
+		return "memberModify";
+	}
+	
+	@RequestMapping(value = "memberModifyOk")
+	public String memberModifyOk(HttpServletRequest request, Model model) {
+		
+		String mid = request.getParameter("mid");
+		String mpw = request.getParameter("mpw");
+		String mname = request.getParameter("mname");
+		String memail = request.getParameter("memail");
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		dao.memberModify(mid, mpw, mname, memail);//반환타입이 void
+		
+		MemberDto memberDto = dao.getMemberInfo(mid);// 수정된 회원정보 다시 가져오기
+		model.addAttribute("memberDto", memberDto);
+		
+		return "memberModifyOk";
+	}
+		
+	
 }
+
+
+
+
+
+
+
 
 
 
