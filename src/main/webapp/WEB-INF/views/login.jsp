@@ -25,7 +25,7 @@
 		<tr>
 			<td >
 				<center>
-				<table width="70%" border="0" cellspacing="0" cellpadding="15">
+				<table width="80%" border="0" cellspacing="0" cellpadding="15">
 					<tr class="contentbox">
 						<td class="content">
 						<center>

@@ -27,4 +27,25 @@
 	 	update profile_member set mpw=#{param2},mname=#{param3}, memail=#{param4} where mid=#{param1}
 	</update>
 	
+	<!-- 게시판 -->
+	<insert id="writeQuestion">
+		INSERT INTO profile_board(qnum, qid, qname, qcontent, qemail) VALUES(profile_seq.nextval,#{param1}, #{param2}, #{param3}, #{param4})
+	</insert>
+	
+	<select id="questionList" resultType="com.pengsoo.home.dto.QBoardDto">
+		select * from profile_board order by qnum desc
+	</select>
+	
+	<select id="questionView" resultType="com.pengsoo.home.dto.QBoardDto">
+		SELECT * FROM profile_board WHERE qnum=#{param1}
+	</select>	
+	
+		<update id="qustionModify">
+	 	update profile_board set qname=#{param2},qcontent=#{param3}, qemail=#{param4} where qnum=#{param1}
+	</update>
+	
 </mapper>
+
+
+
+

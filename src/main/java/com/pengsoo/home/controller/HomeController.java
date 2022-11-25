@@ -1,5 +1,7 @@
 package com.pengsoo.home.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pengsoo.home.dao.IDao;
 import com.pengsoo.home.dto.MemberDto;
+import com.pengsoo.home.dto.QBoardDto;
 
 
 
@@ -173,7 +176,71 @@ public class HomeController {
 		return "memberModifyOk";
 	}
 		
+	@RequestMapping(value = "questionOk")
+	public String writeQuestion(HttpServletRequest request, Model model) {
+		
+		String qid = request.getParameter("qid");//글쓴유저 아이디
+		String qname = request.getParameter("qname");//글쓴유저 이름
+		String qcontent = request.getParameter("qcontent");//글쓴이가 쓴 질문내용
+		String qemail = request.getParameter("qemail");//이메일
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		dao.writeQuestion(qid, qname, qcontent, qemail);
+		
+		return "redirect:list";
+	}
 	
+	@RequestMapping(value = "list")
+	public String list( Model model) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		List<QBoardDto> qboardDtos = dao.questionList();//List 와 <QBoardDto> 임포트
+		model.addAttribute("qdtos", qboardDtos );
+		
+		return "questionList";
+	}
+	@RequestMapping(value = "/questionView")
+	public String questionView(HttpServletRequest request, Model model) {
+		
+		String qnum = request.getParameter("qnum");
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		QBoardDto qBoardDto = dao.questionView(qnum);
+		
+		model.addAttribute("qdto", qBoardDto);
+		model.addAttribute("qid", qBoardDto.getQid());//글쓴 유저의 id값 전송
+		
+		return "questionView";
+	}
+	
+	@RequestMapping(value = "questionModify")
+	public String questionModify(HttpServletRequest request, Model model) {
+		
+		String qnum = request.getParameter("qnum");
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		QBoardDto qBoardDto = dao.questionView(qnum);
+		
+		model.addAttribute("qdto", qBoardDto);
+		return "questionModify";
+	}
+
+	
+	@RequestMapping(value = "questionModifyOk")
+	public String questionModifyOk(HttpServletRequest request, Model model) {
+		
+		String qnum = request.getParameter("qnum");
+		String qname = request.getParameter("qname");
+		String qcontent = request.getParameter("qcontent");
+		String qemail = request.getParameter("qemail");
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		dao.qustionModify(qnum, qname, qcontent, qemail);
+		
+		return "redirect:list";
+	}
 }
 
 

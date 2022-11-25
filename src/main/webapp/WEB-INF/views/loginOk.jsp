@@ -25,7 +25,7 @@
 		<tr>
 			<td >
 				<center>
-				<table width="70%" border="0" cellspacing="0" cellpadding="15">
+				<table width="80%" border="0" cellspacing="0" cellpadding="15">
 					<tr class="contentbox">
 						<td class="content">
 							<% //view에서 넘어오고 jsp에서 model은(스크립틀릿에서는) request에서 보낸다 getAttribute는 String으로만 받는다

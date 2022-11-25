@@ -7,9 +7,9 @@ tr.contentbox {
 
 td.content {
 	font-family: malgun;
-	font-size: 40px;
+	font-size: 25px;
 	font-weight: bold;
-	color: #000031;
+	color: #2a2a2a;
 	text-align: center;
 }
 
@@ -26,7 +26,7 @@ input.input_type01 {
 	width: 250px;
 	font-family: Alrial;
 	font-size: 20px;
-	color: #000031;
+	color: #2a2a2a;
 	padding: 5px;
 }
 
@@ -49,7 +49,7 @@ textarea.textarea_type01 {
 	width: 250px;
 	font-family: Alrial;
 	font-size: 20px;
-	color: #000031;
+	color: #2a2a2a;
 	padding: 5px;
 }
 

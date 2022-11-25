@@ -31,28 +31,35 @@
 						<td class="content">
 						<center>
 							<table border="0" cellspacing="0" cellpadding="15">
-								<form action="questionOk" method="post" name="board_frm">
+								<form action="questionModifyOk" method="post" name="board_frm">
+									<input type="hidden" value="${qdto.qnum }" name="qnum">
 									<tr>
 										<td><span class="content_text01">ID&nbsp;&nbsp;&nbsp; </span></td>
-										<td><input class="input_type01" type="text" name="qid" value="${memberId }" readonly="readonly"></td>
+										<td><input class="input_type01" type="text" name="qid" value="${qdto.qid }" readonly="readonly"></td>
 									</tr>
 									<tr>
 										<td><span class="content_text01">NAME &nbsp;&nbsp; &nbsp;</span></td>
-										<td><input class="input_type01" type="test" name="qname"></td>
+										<td><input class="input_type01" type="test" name="qname" value="${qdto.qname }" ></td>
 									</tr>
 									<tr>
 										<td><span class="content_text01">QUESTION </span></td>
-										<td><textarea class="textarea_type01"  rows="5" clos="30" name="qcontent"></textarea></td>
+										<td><textarea class="textarea_type01"  rows="5" clos="30" name="qcontent"  >${qdto.qcontent}</textarea></td>
 									</tr>
 									<tr>
 										<td><span class="content_text01">E-MAIL &nbsp;&nbsp;</span></td>
-										<td><input class="input_type01" type="text" name="qemail"></td>
+										<td><input class="input_type01" type="text" name="qemail"  value="${qdto.qemail }" ></td>
 									</tr>
 									
+									<tr>
+										<td><span class="content_text01">DATE &nbsp;&nbsp;</span></td>
+										<td><input class="input_type01" type="text" name="qdate"  value="${qdto.qdate }" readonly="readonly"></td>
+									</tr>
 									<tr> 
 										<td colspan="2">
-											<input class="button_type01" type="button" value="질문하기" onclick="boardCheck()">&nbsp;&nbsp;
+											<input class="button_type01" type="submit" value="수정완료" >&nbsp;&nbsp;
+											<input class="button_type01" type="button" value="삭제" onclick="script:window.location='questionDelete?qnum=${qdto.qnum}'">
 											<input class="button_type01" type="button" value="글목록" onclick="script:window.location='list'">
+										
 										</td>
 									</tr>
 								</form>
