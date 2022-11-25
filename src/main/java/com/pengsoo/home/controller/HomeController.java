@@ -237,7 +237,20 @@ public class HomeController {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		dao.qustionModify(qnum, qname, qcontent, qemail);
+		dao.questionModify(qnum, qname, qcontent, qemail);
+		
+		return "redirect:list";
+	}
+	
+	
+	@RequestMapping(value = "questionDelete")
+	public String questionDelete(HttpServletRequest request, Model model) {
+		
+		String qnum = request.getParameter("qnum");
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		dao.questionDelete(qnum);
+	
 		
 		return "redirect:list";
 	}

@@ -48,7 +48,7 @@
 										<td class="board_content01">${qdto.qnum }</td>
 										<td class="board_content01">${qdto.qid }</td>
 										<td class="board_content02">
-										<a href="questionView?qnum=${dto.qnum }">
+										<a href="questionView?qnum=${qdto.qnum }">
 										<c:choose> 
 											<c:when test="${fn:length(qdto.qcontent) > 20}">
 												<c:out value="${fn:substring(qdto.qcontent,0,19) }"></c:out>... 

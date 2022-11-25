@@ -40,9 +40,13 @@
 		SELECT * FROM profile_board WHERE qnum=#{param1}
 	</select>	
 	
-		<update id="qustionModify">
+		<update id="questionModify">
 	 	update profile_board set qname=#{param2},qcontent=#{param3}, qemail=#{param4} where qnum=#{param1}
 	</update>
+	
+	<delete id="questionDelete">
+		DELETE FROM profile_board WHERE qnum=#{param1}
+	</delete>
 	
 </mapper>
 
