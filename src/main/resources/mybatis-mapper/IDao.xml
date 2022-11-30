@@ -48,6 +48,9 @@
 		DELETE FROM profile_board WHERE qnum=#{param1}
 	</delete>
 	
+	<select id="boardAllcount" resultType="int"> <!-- 모든 갯수 가져오니까 int -->
+		select count(*) from profile_board 
+	</select>
 </mapper>
 
 

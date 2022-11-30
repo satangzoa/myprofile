@@ -31,6 +31,7 @@ public interface IDao {
 	public QBoardDto questionView(String qnum);//select 번호 하나만 가져온다 선택한 글 번호의 정보 가져오기
 	public void questionModify(String qnum,String qname,String qcontent,String qemail);//해당 글 번호로 조회하여 질문수정 update
 	public void questionDelete(String qnum);//게시판 글삭제
+	public int boardAllcount(); // 게시판 총 글의 갯수 가져오기 
 	
 }
 

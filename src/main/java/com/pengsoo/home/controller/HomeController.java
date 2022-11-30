@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pengsoo.home.dao.IDao;
+import com.pengsoo.home.dto.Criteria;
 import com.pengsoo.home.dto.MemberDto;
+import com.pengsoo.home.dto.PageDto;
 import com.pengsoo.home.dto.QBoardDto;
 
 
@@ -142,7 +144,6 @@ public class HomeController {
 		
 		return "loginOk";
 	}
-	
 
 	@RequestMapping(value = "memberModify")
 	public String memberModify(HttpSession session,Model model) {
@@ -150,7 +151,6 @@ public class HomeController {
 		String sessionId = (String) session.getAttribute("memberId");
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
-		
 		MemberDto memberDto = dao.getMemberInfo(sessionId);
 		
 		model.addAttribute("memberDto", memberDto);
@@ -169,7 +169,6 @@ public class HomeController {
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
 		dao.memberModify(mid, mpw, mname, memail);//반환타입이 void
-		
 		MemberDto memberDto = dao.getMemberInfo(mid);// 수정된 회원정보 다시 가져오기
 		model.addAttribute("memberDto", memberDto);
 		
@@ -191,14 +190,32 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "list")
-	public String list( Model model) {
-		
+	public String list( Model model, Criteria cri,HttpServletRequest request) {//페이징해야하므로 Criteria 가져온다
+		if(request.getParameter("pageNum") == null) {
+			int pageNumInt =1;//1페이지부터 시작
+			model.addAttribute("currPage", pageNumInt );
+		} else {
+			int pageNumInt =Integer.parseInt(request.getParameter("pageNum"));
+			model.addAttribute("currPage", pageNumInt );
+		}
 		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		int totalRecord = dao.boardAllcount();
+		
+		//cri.setPageNum();
+		cri.setStartNum(cri.getPageNum()-1 * cri.getAmount()); //공식이므로 외운다 /해당 페이지의 시작번호를 설정
+		
+		PageDto pageDto = new PageDto(cri, 57); //PageDto 호출해서 객체생성
+
 		List<QBoardDto> qboardDtos = dao.questionList();//List 와 <QBoardDto> 임포트
+		
+		model.addAttribute("pageMaker", pageDto);//pageMaker = pageDto
 		model.addAttribute("qdtos", qboardDtos );
+		
 		
 		return "questionList";
 	}
+	
 	@RequestMapping(value = "/questionView")
 	public String questionView(HttpServletRequest request, Model model) {
 		
