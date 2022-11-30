@@ -3,6 +3,7 @@ package com.pengsoo.home.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pengsoo.home.dto.Criteria;
 import com.pengsoo.home.dto.MemberDto;
 import com.pengsoo.home.dto.QBoardDto;
 
@@ -27,7 +28,7 @@ public interface IDao {
 	
 	//질문게시판
 	public void writeQuestion(String qid, String qname,  String qcontent,String qemail);//질문하기 insert
-	public List<QBoardDto> questionList();//질문 게시판 리스트 전부가져오기 select
+	public List<QBoardDto> questionList(Criteria cri);//질문 게시판 리스트 전부가져오기 select 클릭한 페이지 번호 가져옴
 	public QBoardDto questionView(String qnum);//select 번호 하나만 가져온다 선택한 글 번호의 정보 가져오기
 	public void questionModify(String qnum,String qname,String qcontent,String qemail);//해당 글 번호로 조회하여 질문수정 update
 	public void questionDelete(String qnum);//게시판 글삭제

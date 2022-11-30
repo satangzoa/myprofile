@@ -191,12 +191,14 @@ public class HomeController {
 	
 	@RequestMapping(value = "list")
 	public String list( Model model, Criteria cri,HttpServletRequest request) {//페이징해야하므로 Criteria 가져온다
+		
+		int pageNumInt=0;
 		if(request.getParameter("pageNum") == null) {
-			int pageNumInt =1;//1페이지부터 시작
-			model.addAttribute("currPage", pageNumInt );
+			 pageNumInt =1;//1페이지부터 시작
+			cri.setPageNum(pageNumInt);
 		} else {
-			int pageNumInt =Integer.parseInt(request.getParameter("pageNum"));
-			model.addAttribute("currPage", pageNumInt );
+			 pageNumInt =Integer.parseInt(request.getParameter("pageNum"));
+			 cri.setPageNum(pageNumInt);
 		}
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
@@ -205,13 +207,13 @@ public class HomeController {
 		//cri.setPageNum();
 		cri.setStartNum(cri.getPageNum()-1 * cri.getAmount()); //공식이므로 외운다 /해당 페이지의 시작번호를 설정
 		
-		PageDto pageDto = new PageDto(cri, 57); //PageDto 호출해서 객체생성
+		PageDto pageDto = new PageDto(cri, totalRecord); //PageDto 호출해서 객체생성
 
-		List<QBoardDto> qboardDtos = dao.questionList();//List 와 <QBoardDto> 임포트
+		List<QBoardDto> qboardDtos = dao.questionList(cri);//List 와 <QBoardDto> 임포트
 		
 		model.addAttribute("pageMaker", pageDto);//pageMaker = pageDto
 		model.addAttribute("qdtos", qboardDtos );
-		
+		model.addAttribute("currPage", pageNumInt );
 		
 		return "questionList";
 	}

@@ -32,9 +32,13 @@
 		INSERT INTO profile_board(qnum, qid, qname, qcontent, qemail) VALUES(profile_seq.nextval,#{param1}, #{param2}, #{param3}, #{param4})
 	</insert>
 	
-	<select id="questionList" resultType="com.pengsoo.home.dto.QBoardDto">
-		select * from profile_board order by qnum desc
-	</select>
+	<select id="questionList" resultType="com.pengsoo.home.dto.QBoardDto"> <!-- ROWNUM 오라클에 자동생성되는 번호 A와 PAGE는 가상의 필드-->
+		SELECT * FROM
+			(SELECT A.*,Floor((ROWNUM-1)/#{amount}+1)PAGE,ROWNUM <!--소수점 버림 함수 Floor를 사용 amount는 5 -->
+			FROM
+			(SELECT * FROM profile_board ORDER BY qnum DESC)A)
+		WHERE PAGE = #{pageNum}
+		</select>
 	
 	<select id="questionView" resultType="com.pengsoo.home.dto.QBoardDto">
 		SELECT * FROM profile_board WHERE qnum=#{param1}
